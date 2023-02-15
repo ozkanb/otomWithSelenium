@@ -5,6 +5,7 @@ import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.openqa.selenium.By;
+import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.support.ui.ExpectedConditions;
@@ -26,13 +27,10 @@ public class LoginTests {
         driver.manage().window().maximize();
         anaSayfa = new AnaSayfa(driver);
         girisYapSayfasi = new GirisYapSayfasi(driver);
-
+        driver.get("https://www.hepsiburada.com");
     }
     @Test
     void hepsiburadaLoginTesti() throws InterruptedException {
-        driver.get("https://www.hepsiburada.com");
-
-        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(20L));
 
         //wait.until((ExpectedConditions.presenceOfElementLocated(By.id("myAccount"))));
         anaSayfa.elemetGozukeneKadarBekle(anaSayfa.hesabim);
@@ -53,6 +51,12 @@ public class LoginTests {
         girisYapSayfasi.elemetGozukeneKadarBekle(girisYapSayfasi.girisYapTusu);
         girisYapSayfasi.tusaBas(girisYapSayfasi.girisYapTusu);
         Thread.sleep(5000);
+    }
+    @Test
+    public void urunAramaAlaniTesti(){
+        anaSayfa.elemetGozukeneKadarBekleCss(anaSayfa.urunArama);
+        anaSayfa.alanaTxtGirisiCss(anaSayfa.urunArama, "Araba");
+        anaSayfa.klavyeTusunaBas(anaSayfa.urunArama, Keys.ENTER);
     }
     @AfterEach
     void teardown(){
